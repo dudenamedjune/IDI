@@ -8,8 +8,12 @@
   },
   "dependencies": {
     "@google-cloud/vision": "^0.11.2",
+    "i": "^0.3.5",
+    "npm": "^4.5.0",
+    "passbook": "^2.1.1",
     "react": "16.0.0-alpha.6",
-    "react-native": "0.43.4"
+    "react-native": "0.43.4",
+    "react-native-camera": "^0.6.0"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
