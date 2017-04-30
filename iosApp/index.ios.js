@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import Camera from 'react-native-camera';
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
 } from 'react-native';
-const fileName = 'https://images.gr-assets.com/quotes/1387506524p8/2534.jpg';
-import  Camera from 'react-native-camera';
 
 export default class iosApp extends Component {
   render() {
@@ -26,10 +25,41 @@ export default class iosApp extends Component {
   }
   takePicture() {
    const options = {};
-   //options.location = ...
    this.camera.capture({metadata: options})
      .then((data) => console.log(data))
      .catch(err => console.error(err));
+
+    // extract text
+    var visionUrl = "https://vision.googleapis.com/v1/images:annotate?key="; // TODO API KEY
+    var postBody = {
+      "requests": [
+        {
+          "image": {
+            "source": {
+              "imageUri": "https://images.gr-assets.com/quotes/1387506524p8/2534.jpg" // TODO replace this text img with real data
+            }
+          },
+          "features": [
+            {
+              "type": "TEXT_DETECTION",
+              "maxResults": 100000
+            }
+          ]
+        }
+      ]
+    };
+
+    fetch(visionUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: postBody
+    }).then(function(response) {
+      console.log("Google Vision API response body -\n" + response.json());
+    })
+
  }
 }
 
